@@ -1,0 +1,15 @@
+function sendEmailApproval() {
+var sheet = SpreadsheetApp.getActive().getSheetByName('Test_MailApp');
+var LastRow = sheet.getLastRow();
+var LastCol = sheet.getLastColumn();
+for (var i=2;i<=LastRow;i++) {
+  var emailAddress = sheet.getRange(i, 9).getValue();
+  var subject = sheet.getRange(i, 11).getValue();
+  var message = sheet.getRange(i, 12).getValue();
+  var emailSent = sheet.getRange(i, 13).getValue();
+  if (emailSent !== EMAIL_SENT)
+  MailApp.sendEmail(emailAddress, subject, message);
+  sheet.getRange(i, 13).setValue(EMAIL_SENT);
+  SpreadsheetApp.flush();
+}
+}
